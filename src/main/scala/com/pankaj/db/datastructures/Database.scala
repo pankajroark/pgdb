@@ -13,6 +13,20 @@ object Database {
     else
       databases(name) = new Database(name)
   }
+
+  def deleteDatabase(name:String) = {
+    if (!hasDatabase(name))
+      throw new IllegalArgumentException("Database doesn't exist")
+    else
+      databases -= name
+  }
+
+  def createTable(db:String, table:String, cols:Array[String]) {
+    if (!hasDatabase(db))
+      throw new IllegalArgumentException("Database does not exist:%s".format(db))
+    else
+      databases(db).createTable(table, cols)
+  }
 }
 
 class Database(n:String) {
